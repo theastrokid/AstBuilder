@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="#060c1a"/>
+  <radialGradient id="png1" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#40ffff" stop-opacity="0"/>
+    <stop offset="55%" stop-color="#20c0c0" stop-opacity="0.6"/>
+    <stop offset="70%" stop-color="#10a0e0" stop-opacity="0.8"/>
+    <stop offset="80%" stop-color="#2060ff" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#100860" stop-opacity="0.1"/>
+  </radialGradient>
+  <radialGradient id="png2" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+    <stop offset="40%" stop-color="#80ffff" stop-opacity="0.4"/>
+    <stop offset="100%" stop-color="#00ffff" stop-opacity="0"/>
+  </radialGradient>
+  <!-- Outer shell -->
+  <circle cx="60" cy="60" r="38" fill="url(#png1)"/>
+  <!-- Inner cavity -->
+  <circle cx="60" cy="60" r="22" fill="#040c18" fill-opacity="0.85"/>
+  <!-- Central star -->
+  <circle cx="60" cy="60" r="10" fill="url(#png2)"/>
+  <circle cx="60" cy="60" r="3"  fill="#ffffff" fill-opacity="1"/>
+  <!-- Polar lobes -->
+  <ellipse cx="60" cy="32" rx="8" ry="12" fill="#20c0ff" fill-opacity="0.25"/>
+  <ellipse cx="60" cy="88" rx="8" ry="12" fill="#20c0ff" fill-opacity="0.25"/>
+  <!-- Equatorial brightening -->
+  <ellipse cx="60" cy="60" rx="38" ry="12" fill="#2080ff" fill-opacity="0.15"/>
+</svg>

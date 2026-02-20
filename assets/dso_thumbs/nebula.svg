@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="#060c1a"/>
+  <!-- Nebula clouds -->
+  <radialGradient id="ng1" cx="45%" cy="40%" r="55%">
+    <stop offset="0%" stop-color="#c060c0" stop-opacity="0.7"/>
+    <stop offset="60%" stop-color="#6020a0" stop-opacity="0.4"/>
+    <stop offset="100%" stop-color="#200840" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ng2" cx="65%" cy="60%" r="45%">
+    <stop offset="0%" stop-color="#4080ff" stop-opacity="0.6"/>
+    <stop offset="60%" stop-color="#2040a0" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#100820" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="ng3" cx="50%" cy="55%" r="35%">
+    <stop offset="0%" stop-color="#ff8040" stop-opacity="0.5"/>
+    <stop offset="100%" stop-color="#401000" stop-opacity="0"/>
+  </radialGradient>
+  <ellipse cx="50" cy="48" rx="45" ry="40" fill="url(#ng1)"/>
+  <ellipse cx="72" cy="65" rx="38" ry="32" fill="url(#ng2)"/>
+  <ellipse cx="58" cy="62" rx="28" ry="22" fill="url(#ng3)"/>
+  <!-- Stars embedded in nebula -->
+  <circle cx="60" cy="58" r="2.5" fill="white" fill-opacity="0.95"/>
+  <circle cx="42" cy="46" r="1.2" fill="#c8d8ff" fill-opacity="0.9"/>
+  <circle cx="75" cy="55" r="1.0" fill="white" fill-opacity="0.8"/>
+  <circle cx="55" cy="72" r="0.8" fill="#ffd8c0" fill-opacity="0.8"/>
+  <circle cx="35" cy="62" r="0.6" fill="white" fill-opacity="0.6"/>
+  <circle cx="85" cy="45" r="0.7" fill="white" fill-opacity="0.6"/>
+  <circle cx="68" cy="80" r="0.6" fill="white" fill-opacity="0.5"/>
+  <circle cx="28" cy="38" r="0.5" fill="white" fill-opacity="0.5"/>
+</svg>

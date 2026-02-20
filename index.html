@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Star Map – Print-Ready Sky Posters</title>
+  <meta name="description" content="Generate a scientifically accurate, print-ready star map for any date, time, and location. Free. No login required." />
+
+  <!-- Google Fonts: curated pairings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- External libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <!-- App data (loaded before app scripts) -->
+  <script src="data/stars.js"></script>
+  <script src="data/constellations.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ APP SHELL ══ -->
+<div id="app">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+        <line x1="12" y1="2" x2="12" y2="5" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="2" y1="12" x2="5" y2="12" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="19" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="7.5" cy="6" r="0.7" fill="currentColor"/>
+        <circle cx="16.5" cy="6" r="1.1" fill="currentColor"/>
+        <circle cx="5" cy="15" r="0.5" fill="currentColor"/>
+        <circle cx="18" cy="16" r="0.8" fill="currentColor"/>
+        <circle cx="14" cy="18" r="0.5" fill="currentColor"/>
+      </svg>
+      <span class="brand-name">StarMap</span>
+      <span class="brand-tag">Print Studio</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn-ghost" id="btn-share" title="Copy share link">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/></svg>
+        Share
+      </button>
+      <button class="btn-ghost" id="btn-reset" title="Reset to defaults">Reset</button>
+    </div>
+  </header>
+
+  <!-- Wizard progress bar -->
+  <nav class="wizard-nav" role="navigation" aria-label="Wizard steps">
+    <div class="wizard-steps">
+      <button class="wizard-step active" data-step="1" aria-current="step">
+        <span class="step-num">1</span>
+        <span class="step-label">Format</span>
+      </button>
+      <div class="step-connector"></div>
+      <button class="wizard-step" data-step="2">
+        <span class="step-num">2</span>
+        <span class="step-label">Personalize</span>
+      </button>
+      <div class="step-connector"></div>
+      <button class="wizard-step" data-step="3">
+        <span class="step-num">3</span>
+        <span class="step-label">Finish</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main workspace -->
+  <div class="workspace">
+
+    <!-- ══ LEFT PANEL: Controls ══════════════════════════════════════ -->
+    <aside class="controls-panel" id="controls-panel">
+
+      <!-- ── STEP 1: FORMAT ──────────────────────────────────────── -->
+      <section class="wizard-section" id="step-1" data-step="1">
+        <div class="section-header">
+          <h2>Design &amp; Format</h2>
+          <p class="section-hint">Choose a preset or build your own look.</p>
+        </div>
+
+        <!-- Design Presets -->
+        <div class="control-group">
+          <label class="control-label">Design Presets</label>
+          <div class="preset-grid" id="preset-grid">
+            <button class="preset-card active" data-preset="midnight-classic" title="Midnight Classic">
+              <div class="preset-swatch" style="background:#0d1b2a"></div>
+              <span>Midnight Classic</span>
+            </button>
+            <button class="preset-card" data-preset="gold-on-black" title="Gold on Black">
+              <div class="preset-swatch" style="background:#0a0a0a; border: 1px solid #c9a84c"></div>
+              <span>Gold &amp; Black</span>
+            </button>
+            <button class="preset-card" data-preset="light-minimal" title="Light Minimal">
+              <div class="preset-swatch" style="background:#f8f4ef; border: 1px solid #d0c9bf"></div>
+              <span>Light Minimal</span>
+            </button>
+            <button class="preset-card" data-preset="deep-cosmos" title="Deep Cosmos">
+              <div class="preset-swatch" style="background:#03050d"></div>
+              <span>Deep Cosmos</span>
+            </button>
+            <button class="preset-card" data-preset="navy-silver" title="Navy Silver">
+              <div class="preset-swatch" style="background:#1a2744"></div>
+              <span>Navy Silver</span>
+            </button>
+            <button class="preset-card" data-preset="fine-art" title="Fine Art">
+              <div class="preset-swatch" style="background:#2c1810"></div>
+              <span>Fine Art</span>
+            </button>
+            <button class="preset-card" data-preset="arctic" title="Arctic Light">
+              <div class="preset-swatch" style="background:#e8eef4; border: 1px solid #b8d0e8"></div>
+              <span>Arctic Light</span>
+            </button>
+            <button class="preset-card" data-preset="rose-quartz" title="Rose Quartz">
+              <div class="preset-swatch" style="background:#2a1520"></div>
+              <span>Rose Quartz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Print Size -->
+        <div class="control-group">
+          <label class="control-label">Print Size</label>
+          <div class="radio-grid" id="size-grid">
+            <label class="radio-pill"><input type="radio" name="size" value="18x24" checked /> 18×24″</label>
+            <label class="radio-pill"><input type="radio" name="size" value="24x36" /> 24×36″</label>
+            <label class="radio-pill"><input type="radio" name="size" value="A4" /> A4</label>
+            <label class="radio-pill"><input type="radio" name="size" value="A3" /> A3</label>
+            <label class="radio-pill"><input type="radio" name="size" value="A2" /> A2</label>
+            <label class="radio-pill"><input type="radio" name="size" value="A1" /> A1</label>
+          </div>
+        </div>
+
+        <!-- Orientation -->
+        <div class="control-group control-row">
+          <label class="control-label">Orientation</label>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-orient="portrait" id="btn-portrait">
+              <svg viewBox="0 0 14 18" width="14"><rect x="1" y="1" width="12" height="16" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              Portrait
+            </button>
+            <button class="toggle-btn" data-orient="landscape" id="btn-landscape">
+              <svg viewBox="0 0 18 14" width="18"><rect x="1" y="1" width="16" height="12" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+              Landscape
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme -->
+        <div class="control-group">
+          <label class="control-label">Color Theme</label>
+          <div class="select-wrapper">
+            <select id="theme-select">
+              <option value="midnight-blue">Midnight Blue</option>
+              <option value="dark">Dark Space</option>
+              <option value="black-gold">Black &amp; Gold</option>
+              <option value="light">Light / Day</option>
+              <option value="minimal">Minimal White</option>
+              <option value="deep-cosmos">Deep Cosmos</option>
+              <option value="navy">Navy Silver</option>
+              <option value="warm-dark">Warm Dark</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="control-group">
+          <label class="control-label">Typography</label>
+          <div class="radio-list" id="font-list">
+            <label class="radio-item">
+              <input type="radio" name="font" value="cinzel-garamond" checked />
+              <span class="radio-label" style="font-family:'Cinzel',serif">Cinzel</span>
+              <span class="radio-sub" style="font-family:'Cormorant Garamond',serif">+ Cormorant — Classic elegance</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="font" value="playfair-raleway" />
+              <span class="radio-label" style="font-family:'Playfair Display',serif">Playfair</span>
+              <span class="radio-sub" style="font-family:'Raleway',sans-serif">+ Raleway — Modern serif</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="font" value="josefin-garamond" />
+              <span class="radio-label" style="font-family:'Josefin Sans',sans-serif">Josefin Sans</span>
+              <span class="radio-sub" style="font-family:'EB Garamond',serif">+ EB Garamond — Geometric</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Border -->
+        <div class="control-group control-row">
+          <label class="control-label">Border</label>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-border="none" id="border-none">None</button>
+            <button class="toggle-btn" data-border="thin" id="border-thin">Thin</button>
+            <button class="toggle-btn" data-border="thick" id="border-thick">Thick</button>
+            <button class="toggle-btn" data-border="double" id="border-double">Double</button>
+          </div>
+        </div>
+
+        <!-- Star Style -->
+        <div class="control-group">
+          <label class="control-label">Star Rendering</label>
+          <div class="radio-list">
+            <label class="radio-item">
+              <input type="radio" name="starStyle" value="realistic" checked />
+              <span class="radio-label">Realistic</span>
+              <span class="radio-sub">Brightness-scaled, colored by spectral type</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="starStyle" value="minimal" />
+              <span class="radio-label">Minimal</span>
+              <span class="radio-sub">Uniform white dots, size by magnitude only</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="starStyle" value="fine-art" />
+              <span class="radio-label">Fine Art</span>
+              <span class="radio-sub">Slightly exaggerated, glowing halos on bright stars</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Map View -->
+        <div class="control-group">
+          <label class="control-label">Map Center</label>
+          <div class="select-wrapper">
+            <select id="map-center">
+              <option value="zenith">Zenith (your sky, looking up)</option>
+              <option value="north">North Celestial Pole style</option>
+              <option value="south">South Celestial Pole style</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Toggle elements -->
+        <div class="control-group">
+          <label class="control-label">Map Elements</label>
+          <div class="toggle-list">
+            <label class="toggle-item"><input type="checkbox" id="tog-constellation-lines" checked /><span>Constellation lines</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-constellation-names" checked /><span>Constellation names</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-star-names" /><span>Bright star names</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-grid" /><span>RA/Dec grid</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-cardinals" checked /><span>Cardinal directions (N/E/S/W)</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-ecliptic" /><span>Ecliptic line</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-milkyway" checked /><span>Milky Way shading</span></label>
+            <label class="toggle-item"><input type="checkbox" id="tog-magnitude-limit" /><span>Show stars to mag 7 (denser)</span></label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-primary btn-next" data-to="2">Next: Personalize →</button>
+        </div>
+      </section>
+
+      <!-- ── STEP 2: PERSONALIZE ─────────────────────────────────── -->
+      <section class="wizard-section hidden" id="step-2" data-step="2">
+        <div class="section-header">
+          <h2>Your Moment</h2>
+          <p class="section-hint">The sky as it appeared exactly then and there.</p>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="input-title">Event Title</label>
+          <input type="text" id="input-title" class="text-input" placeholder="The Night We Met" maxlength="60" />
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="input-subtitle">Subtitle <span class="label-opt">optional</span></label>
+          <input type="text" id="input-subtitle" class="text-input" placeholder="Sophia &amp; Daniel" maxlength="60" />
+        </div>
+
+        <!-- Date + Time Mode -->
+        <div class="control-group">
+          <label class="control-label">Date &amp; Time</label>
+          <div class="time-mode-selector" id="time-mode-group">
+            <label class="time-mode-option active" data-mode="exact">
+              <input type="radio" name="timeMode" value="exact" checked />
+              <div>
+                <strong>Exact time</strong>
+                <span>I know the precise hour — most accurate sky.</span>
+              </div>
+            </label>
+            <label class="time-mode-option" data-mode="evening">
+              <input type="radio" name="timeMode" value="evening" />
+              <div>
+                <strong>Evening sky</strong>
+                <span>Uses 22:00 local time — typical night-out sky.</span>
+              </div>
+            </label>
+            <label class="time-mode-option" data-mode="allnight">
+              <input type="radio" name="timeMode" value="allnight" />
+              <div>
+                <strong>All-night blend</strong>
+                <span>Composite of the full night — labeled "representative sky".</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="input-date">Date</label>
+            <input type="date" id="input-date" class="text-input" />
+          </div>
+          <div class="control-group" id="time-input-group">
+            <label class="control-label" for="input-time">Time</label>
+            <input type="time" id="input-time" class="text-input" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="timezone-select">Timezone</label>
+          <div class="select-wrapper">
+            <select id="timezone-select">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="control-group">
+          <label class="control-label">Location</label>
+          <div class="location-search-wrapper">
+            <input type="text" id="input-location-search" class="text-input" placeholder="Search city or place…" autocomplete="off" />
+            <div id="location-suggestions" class="location-suggestions hidden"></div>
+          </div>
+          <div class="latlon-row">
+            <div>
+              <label class="control-label-sm" for="input-lat">Latitude</label>
+              <input type="number" id="input-lat" class="text-input-sm" placeholder="40.7128" step="0.0001" min="-90" max="90" />
+            </div>
+            <div>
+              <label class="control-label-sm" for="input-lon">Longitude</label>
+              <input type="number" id="input-lon" class="text-input-sm" placeholder="-74.0060" step="0.0001" min="-180" max="180" />
+            </div>
+            <button class="btn-icon" id="btn-locate" title="Use my location">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="16"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Optional print lines -->
+        <div class="control-group">
+          <label class="control-label">On the Poster</label>
+          <div class="toggle-list">
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-show-coords" checked />
+              <span>Show coordinates / location name</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-show-date" checked />
+              <span>Show date &amp; time line</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-sci-footer" />
+              <span>Scientific footer (LST, moon phase, twilight)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-planets" />
+              <span>Moon + planet strip</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-sky-conditions" />
+              <span>Sky conditions note (darkness window)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-dso-footer" checked />
+              <span>Deep sky objects footer (Top 5)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="tog-qr" />
+              <span>QR code (links to interactive sky view)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-secondary btn-back" data-to="1">← Back</button>
+          <button class="btn-primary btn-next" data-to="3">Next: Finish →</button>
+        </div>
+      </section>
+
+      <!-- ── STEP 3: FINISH ──────────────────────────────────────── -->
+      <section class="wizard-section hidden" id="step-3" data-step="3">
+        <div class="section-header">
+          <h2>Your Star Map</h2>
+          <p class="section-hint">Download print-ready files or share your design.</p>
+        </div>
+
+        <!-- DSO section -->
+        <div class="control-group" id="dso-section">
+          <label class="control-label">Tonight's Deep Sky Objects</label>
+          <p class="section-hint" style="margin-bottom: 10px;">A curated seasonal selection for your month.</p>
+          <div class="dso-toggle-row">
+            <label class="toggle-item inline">
+              <input type="checkbox" id="tog-strict-visibility" />
+              <span>Strict visibility (swap out low objects)</span>
+            </label>
+            <button class="btn-ghost btn-sm" id="btn-shuffle-dso">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="14"><path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H3.989a.75.75 0 00-.75.75v4.242a.75.75 0 001.5 0v-2.43l.31.31a7 7 0 0011.712-3.138.75.75 0 00-1.449-.39zm1.23-3.723a.75.75 0 00.219-.53V2.929a.75.75 0 00-1.5 0V5.36l-.31-.31A7 7 0 003.239 8.188a.75.75 0 101.448.389A5.5 5.5 0 0113.89 6.11l.311.31h-2.432a.75.75 0 000 1.5h4.243a.75.75 0 00.53-.219z" clip-rule="evenodd"/></svg>
+              Shuffle DSOs
+            </button>
+          </div>
+          <div id="dso-cards" class="dso-cards">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Export -->
+        <div class="control-group export-group">
+          <label class="control-label">Download Print Files</label>
+          <div class="export-buttons">
+            <button class="btn-export" id="btn-export-svg">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              SVG Vector
+              <span class="export-sub">Lossless, scalable</span>
+            </button>
+            <button class="btn-export" id="btn-export-pdf">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              PDF Print
+              <span class="export-sub">Print shop ready</span>
+            </button>
+          </div>
+          <p class="export-note">Both files are print-ready at correct physical dimensions. SVG is preferred for professional printers. PDF embeds all content safely.</p>
+        </div>
+
+        <!-- Share -->
+        <div class="control-group">
+          <label class="control-label">Share This Design</label>
+          <div class="share-row">
+            <input type="text" id="share-url" class="text-input" readonly />
+            <button class="btn-secondary" id="btn-copy-url">Copy</button>
+          </div>
+          <canvas id="qr-preview" class="qr-canvas hidden"></canvas>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-secondary btn-back" data-to="2">← Back</button>
+        </div>
+      </section>
+
+    </aside><!-- /controls-panel -->
+
+    <!-- ══ RIGHT PANEL: Live Preview ═════════════════════════════════ -->
+    <main class="preview-panel" id="preview-panel">
+      <div class="preview-toolbar">
+        <span class="preview-label">Live Preview</span>
+        <div class="preview-toolbar-right">
+          <button class="btn-ghost btn-sm" id="btn-zoom-out">−</button>
+          <span class="zoom-level" id="zoom-level">100%</span>
+          <button class="btn-ghost btn-sm" id="btn-zoom-in">+</button>
+          <button class="btn-ghost btn-sm" id="btn-zoom-fit">Fit</button>
+        </div>
+      </div>
+      <div class="preview-viewport" id="preview-viewport">
+        <div class="preview-paper" id="preview-paper">
+          <div class="preview-loading" id="preview-loading">
+            <div class="spinner"></div>
+            <span>Rendering sky…</span>
+          </div>
+          <!-- SVG injected here by JS -->
+          <div id="starmap-container"></div>
+        </div>
+      </div>
+    </main>
+
+  </div><!-- /workspace -->
+</div><!-- /app -->
+
+<!-- DSO detail modal -->
+<div id="dso-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <button class="modal-close" id="dso-modal-close">&times;</button>
+    <div id="dso-modal-content"></div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- App JS -->
+<script src="js/astronomy.js"></script>
+<script src="js/starmap.js"></script>
+<script src="js/export.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

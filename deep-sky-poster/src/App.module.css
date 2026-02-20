@@ -1,0 +1,209 @@
+/* ── Root layout ── */
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* ── Header ── */
+.header {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  background: rgba(5, 7, 26, 0.88);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo {
+  font-size: 26px;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.themeChip {
+  margin-left: auto;
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  background: rgba(255,255,255,0.04);
+}
+
+/* ── Main two-column layout ── */
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .main { grid-template-columns: 1fr; }
+}
+
+/* ── Form column ── */
+.formCol {
+  border-right: 1px solid var(--border);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+  max-height: calc(100vh - 56px);
+  position: sticky;
+  top: 56px;
+}
+
+/* ── Preview column ── */
+.previewCol {
+  display: flex;
+  align-items: flex-start;
+  padding: 24px 28px;
+  min-height: calc(100vh - 56px);
+}
+
+.previewCol > * {
+  width: 100%;
+}
+
+/* ── Placeholder ── */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 80px 40px;
+  width: 100%;
+}
+
+.placeholderIcon {
+  font-size: 52px;
+  color: rgba(245, 197, 24, 0.18);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.placeholderSub {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Status messages ── */
+.statusMsg {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.03em;
+}
+
+.spinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error ── */
+.errorBox {
+  background: rgba(220, 50, 50, 0.07);
+  border: 1px solid rgba(220, 50, 50, 0.28);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 12px;
+  color: #ff8888;
+  line-height: 1.5;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btnPrimary {
+  background: var(--gold);
+  color: #1a1000;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 13px 20px;
+  border-radius: 8px;
+  transition: background 0.15s, transform 0.1s;
+  text-transform: uppercase;
+}
+
+.btnPrimary:hover { background: #ffd740; transform: translateY(-1px); }
+.btnPrimary:active { transform: translateY(0); }
+
+.btnSecondary {
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.btnSecondary:hover { background: rgba(255, 255, 255, 0.06); }
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 14px 28px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.18);
+  letter-spacing: 0.04em;
+}

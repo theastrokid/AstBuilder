@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(kill:*)",
+      "Bash(node -e \"require\\(''./data/stars.js''\\) 2>/dev/null || node --input-type=module\")",
+      "Bash(node -c:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(node -e:*)",
+      "Bash(python3:*)",
+      "Bash(py:*)",
+      "Bash(python3.exe:*)",
+      "Bash(ls:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}

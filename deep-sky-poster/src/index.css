@@ -1,0 +1,56 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #05071a;
+  --surface: #0b0e24;
+  --surface2: #111530;
+  --border: rgba(255, 255, 255, 0.08);
+  --gold: #F5C518;
+  --cream: #D4C5A9;
+  --text: rgba(255, 255, 255, 0.9);
+  --text-dim: rgba(255, 255, 255, 0.45);
+  --accent: #7c4ff0;
+  --radius: 12px;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+/* ── Utilities ── */
+.text-gold { color: var(--gold); }
+.text-dim  { color: var(--text-dim); }
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+input, select {
+  font-family: inherit;
+  outline: none;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }

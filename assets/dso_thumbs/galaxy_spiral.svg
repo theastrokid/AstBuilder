@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="#060c1a"/>
+  <!-- Galaxy glow -->
+  <ellipse cx="60" cy="60" rx="42" ry="18" fill="#2a4a7a" fill-opacity="0.3"/>
+  <ellipse cx="60" cy="60" rx="30" ry="12" fill="#3a6aa0" fill-opacity="0.4"/>
+  <ellipse cx="60" cy="60" rx="18" ry="8" fill="#4a8acc" fill-opacity="0.5"/>
+  <!-- Spiral arms -->
+  <path d="M60,60 Q85,45 90,30 Q80,20 65,35 Q55,45 60,60" fill="none" stroke="#6ab0f0" stroke-width="1.5" stroke-opacity="0.7"/>
+  <path d="M60,60 Q35,75 30,90 Q40,100 55,85 Q65,75 60,60" fill="none" stroke="#6ab0f0" stroke-width="1.5" stroke-opacity="0.7"/>
+  <path d="M60,60 Q80,70 95,75 Q95,60 80,55 Q68,55 60,60" fill="none" stroke="#5aa0e0" stroke-width="1.2" stroke-opacity="0.5"/>
+  <path d="M60,60 Q40,50 25,45 Q25,60 40,65 Q52,65 60,60" fill="none" stroke="#5aa0e0" stroke-width="1.2" stroke-opacity="0.5"/>
+  <!-- Core -->
+  <ellipse cx="60" cy="60" rx="8" ry="5" fill="#c8e0ff" fill-opacity="0.9"/>
+  <ellipse cx="60" cy="60" rx="4" ry="3" fill="#ffffff" fill-opacity="0.95"/>
+  <!-- Stars -->
+  <circle cx="35" cy="30" r="0.8" fill="white" fill-opacity="0.7"/>
+  <circle cx="90" cy="40" r="0.6" fill="white" fill-opacity="0.6"/>
+  <circle cx="25" cy="80" r="0.7" fill="white" fill-opacity="0.5"/>
+  <circle cx="95" cy="85" r="0.5" fill="white" fill-opacity="0.6"/>
+  <circle cx="50" cy="20" r="0.6" fill="white" fill-opacity="0.5"/>
+  <circle cx="80" cy="95" r="0.7" fill="white" fill-opacity="0.5"/>
+</svg>
