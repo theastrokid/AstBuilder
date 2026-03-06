@@ -1,0 +1,135 @@
+[
+  {
+    "filename": "example_01.jpg",
+    "telescope": "Altair 60 EDF",
+    "camera": "Altair Hypercam 585C",
+    "object": "veil",
+    "original_filename": "Altair 60edf - Altair 585mm - veil _1760028675572.jpg"
+  },
+  {
+    "filename": "example_02.jpg",
+    "telescope": "Altair 60 EDF",
+    "camera": "Altair Hypercam 585C",
+    "object": "M31",
+    "original_filename": "Altair 60edf - Altair hypercam 585c - M31_1760028675573.jpg"
+  },
+  {
+    "filename": "example_03.jpg",
+    "telescope": "Altair 60 EDF",
+    "camera": "Altair Hypercam 585C",
+    "object": "Orion nebula",
+    "original_filename": "Altair 60edf - Altair hypercam 585c - Orion nebula_1760028675573.jpg"
+  },
+  {
+    "filename": "example_04.jpg",
+    "telescope": "Altair 60 EDF",
+    "camera": "Altair Hypercam 585C",
+    "object": "Rosette",
+    "original_filename": "Altair 60edf - Altair hypercam 585c - Rosette_1760028675574.jpg"
+  },
+  {
+    "filename": "example_05.jpg",
+    "telescope": "Altair 60 EDF",
+    "camera": "Altair Hypercam 585C",
+    "object": "horsehead nebula",
+    "original_filename": "Altair 60edf - Altair hypercam 585c - horsehead nebula_1760028675573.jpg"
+  },
+  {
+    "filename": "example_06.jpg",
+    "telescope": "Askar 71F",
+    "camera": "ZWO ASI 2600MC",
+    "object": "Heart nebula",
+    "original_filename": "Askar 71F - ASI 2600MC - Heart nebula_1760028675574.jpg"
+  },
+  {
+    "filename": "example_07.jpg",
+    "telescope": "Askar 71F",
+    "camera": "ZWO ASI 2600MC",
+    "object": "M31",
+    "original_filename": "Askar 71F - ASI 2600MC - M31 _1760028675574.jpg"
+  },
+  {
+    "filename": "example_08.jpg",
+    "telescope": "Askar SQA85",
+    "camera": "ZWO ASI 2600MC",
+    "object": "christmas tree and hiubbles variable",
+    "original_filename": "Askar SQA 85 - ASI 2600MC - christmas tree and hiubbles variable_1760028675574.jpg"
+  },
+  {
+    "filename": "example_09.jpg",
+    "telescope": "Askar SQA85",
+    "camera": "ZWO ASI 2600MC",
+    "object": "monkey head",
+    "original_filename": "Askar SQA 85 - ASI 2600MC - monkey head_1760028675574.jpg"
+  },
+  {
+    "filename": "example_10.jpg",
+    "telescope": "Askar SQA85",
+    "camera": "ZWO ASI 2600MC",
+    "object": "rosette",
+    "original_filename": "Askar SQA 85 - ASI 2600MC - rosette_1760028675575.jpg"
+  },
+  {
+    "filename": "example_11.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 2600MC",
+    "object": "M51 pix fin",
+    "original_filename": "Celestron 8 inch edge hd telescope - ASI 2600MC - M51 pix fin_1760028675575.jpg"
+  },
+  {
+    "filename": "example_12.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 2600MC",
+    "object": "bubble nebula",
+    "original_filename": "Celestron 8 inch edge hd telescope - ASI 2600MC - bubble nebula_1760028675575.jpg"
+  },
+  {
+    "filename": "example_13.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 2600MC",
+    "object": "veil nebula fin",
+    "original_filename": "Celestron 8 inch edge hd telescope - ASI 2600MC - veil nebula fin_1760028675575.jpg"
+  },
+  {
+    "filename": "example_14.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 533MC",
+    "object": "M101",
+    "original_filename": "Celestron 8 inch edge hd telescope - Asi 533mc - M101_1760028675575.jpg"
+  },
+  {
+    "filename": "example_15.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 533MC",
+    "object": "M13",
+    "original_filename": "Celestron 8 inch edge hd telescope - asi 533mc - M13_1760028675575.jpg"
+  },
+  {
+    "filename": "example_16.jpg",
+    "telescope": "Celestron C8 Edge HD",
+    "camera": "ZWO ASI 533MC",
+    "object": "M51",
+    "original_filename": "Celestron 8 inch edge hd telescope - asi 533mc - M51_1760028675575.jpg"
+  },
+  {
+    "filename": "example_17.jpg",
+    "telescope": "William Optics RedCat 51",
+    "camera": "ZWO ASI 533MM",
+    "object": "north 5 hours redcat2",
+    "original_filename": "Redcat 51 - ASI 533MM - north 5 hours redcat2_1760028755874.jpg"
+  },
+  {
+    "filename": "example_18.jpg",
+    "telescope": "Skywatcher HAC125 DX",
+    "camera": "Player One Saturn-M",
+    "object": "Andromeda galaxy",
+    "original_filename": "Skywatcher HAC125DX - Player one Saturn Camera - Andromeda galaxy_1760028755874.jpg"
+  },
+  {
+    "filename": "example_19.jpg",
+    "telescope": "Skywatcher HAC125 DX",
+    "camera": "Player One Saturn-M",
+    "object": "Veil nebula",
+    "original_filename": "Skywatcher HAC125DX - Player one Saturn Camera - Veil nebula_1760028755874.jpg"
+  }
+]

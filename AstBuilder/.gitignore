@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.*
+*.log
+
+# Replit / misc
+.replit
+replit.nix
+replit.md
+.local/
+
+# Claude Code local
+.claude/
+
+# Nested duplicates
+AstBuilder/
+dso-quiz/

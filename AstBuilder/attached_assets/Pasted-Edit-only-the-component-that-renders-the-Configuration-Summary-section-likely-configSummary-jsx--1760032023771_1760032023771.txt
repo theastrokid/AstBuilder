@@ -1,0 +1,34 @@
+Edit only the component that renders the “Configuration Summary” section (likely `configSummary.jsx|tsx`). 
+Do not open or read any other files. Do not run preview/rollback.
+
+GOAL A — Layout tweaks
+1) Make the left column narrower—just wide enough for its text content (no excess width).
+2) Convert the right side from 3 stacked rows into 3 equal-width columns (desktop). Keep the same content in each box.
+3) Emphasize the title inside each right-side box (heavier weight and +1 step font size). 
+4) Give those titles a slightly different accent color that suits the dark theme (subtle, accessible).
+5) Center the “Specifications” header above the right column group and emphasize it (slightly larger, maybe uppercase, with balanced spacing above/below).
+
+GOAL B — Image conveyor belt (always visible, below settings)
+1) Directly below the configuration settings, render a horizontally scrolling strip (“conveyor belt”) of low-res thumbnail previews for ALL example images.
+   - Slow, continuous auto-scroll (CSS animation or translateX loop).
+   - Thumbnails show the FULL filename underneath or overlaid (legible, truncated with ellipsis if needed but full name available via title/tooltip).
+2) If an image contains any of the currently selected gear, visually focus it:
+   - Add a faint glow (soft outer shadow) around those thumbnails. 
+   - Also slightly increase their scale (e.g., 1.05) on hover/focus.
+3) Clicking a thumbnail opens a modal/lightbox with a larger preview of the image.
+   - Include close (X), ESC to close, and click-outside to close.
+   - The modal shows the full filename and fits the viewport on mobile/desktop.
+
+TECH NOTES (keep implementation local to this component)
+- Use existing data structure for images if present; otherwise mock a local `images` array with `{src, filename, gearTags[]}`.
+- Use component-scoped styles (Tailwind utility classes OR a small local CSS module). Do NOT edit global styles.
+- Performance: use low-res or pre-existing thumbnails for the belt; lazy-load full images in the modal; pause auto-scroll on hover; prefer CSS for the marquee effect over JS timers.
+- Accessibility: provide `alt` text from filename, give focus styles, and make the modal focus-trap with `aria-modal="true"` and `role="dialog"`.
+
+ACCEPTANCE CRITERIA
+- Left column is visibly narrower; right side displays as 3 columns on desktop and stacks responsively on small screens.
+- Right-box titles are bold, slightly larger, and accent-colored; “Specifications” is centered and more prominent.
+- A smooth, looping horizontal strip of thumbnails is always visible below the settings.
+- Thumbnails related to selected gear show a faint glow.
+- Clicking any thumbnail opens a modal with a larger image and the full filename.
+- All changes are contained to this single component.

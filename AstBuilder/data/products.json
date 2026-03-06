@@ -1,0 +1,517 @@
+{
+  "telescopes": [
+    {
+      "id": "t16",
+      "name": "SvBony MK90",
+      "price": 149.0,
+      "specs": {
+        "aperture_mm": 90,
+        "focal_length_mm": 1250,
+        "f_ratio": 13.9,
+        "weight_kg": 1.3
+      },
+      "video": "videos/telescopes/svbony-mk90.mp4",
+      "affiliateUrl": "https://www.svbony.com/products/mk90-maksutov-cassegrain-reflector-telescope?ref=DAMONSCOTTING&utm_source=goaffpro"
+    },
+    {
+      "id": "t17",
+      "name": "SvBony SV48P",
+      "price": 199.0,
+      "specs": {
+        "aperture_mm": 102,
+        "focal_length_mm": 663,
+        "f_ratio": 6.5,
+        "weight_kg": 3.2
+      },
+      "video": "videos/telescopes/svbony-sv48p.mp4",
+      "affiliateUrl": "https://www.svbony.com/products/sv48p-telescope-refractor-102mm?ref=DAMONSCOTTING&utm_source=goaffpro"
+    },
+    {
+      "id": "t14",
+      "name": "Skywatcher Skymax 127",
+      "price": 349.0,
+      "specs": {
+        "aperture_mm": 127,
+        "focal_length_mm": 1500,
+        "f_ratio": 11.8,
+        "weight_kg": 3.6
+      },
+      "video": "videos/telescopes/skymax-127.mp4",
+      "affiliateUrl": "https://amzn.to/496MEfu"
+    },
+    {
+      "id": "t15",
+      "name": "Askar 80ED",
+      "price": 379.0,
+      "specs": {
+        "aperture_mm": 80,
+        "focal_length_mm": 560,
+        "f_ratio": 7.0,
+        "weight_kg": 1.7
+      },
+      "video": "videos/telescopes/askar-80ed.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2RsSYfZ"
+    },
+    {
+      "id": "t13",
+      "name": "Askar 60F",
+      "price": 498.0,
+      "specs": {
+        "aperture_mm": 60,
+        "focal_length_mm": 408,
+        "f_ratio": 6.8,
+        "weight_kg": 2.5
+      },
+      "video": "videos/telescopes/askar-60f.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3ORyEYT"
+    },
+    {
+      "id": "t20",
+      "name": "Altair 60 EDF",
+      "price": 499.0,
+      "specs": {
+        "aperture_mm": 60,
+        "focal_length_mm": 360,
+        "f_ratio": 6.0,
+        "weight_kg": 1.5
+      },
+      "video": "videos/telescopes/altair-60edf.mp4",
+      "affiliateUrl": "https://altairastro.com/altair-60-edf-doublet-refractor-telescope-v3-450-p.asp"
+    },
+    {
+      "id": "t5",
+      "name": "Askar 71F",
+      "price": 539.0,
+      "specs": {
+        "aperture_mm": 71,
+        "focal_length_mm": 490,
+        "f_ratio": 6.9,
+        "weight_kg": 2.5
+      },
+      "video": "videos/telescopes/askar-71f.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Lt5zCP"
+    },
+    {
+      "id": "t21",
+      "name": "Skywatcher HAC125 DX",
+      "price": 599.0,
+      "specs": {
+        "aperture_mm": 125,
+        "focal_length_mm": 250,
+        "f_ratio": 2.0,
+        "weight_kg": 3.8
+      },
+      "video": "videos/telescopes/skywatcher-hac125dx.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4W0L3mj"
+    },
+    {
+      "id": "t6",
+      "name": "Askar 103 APO",
+      "price": 999.0,
+      "specs": {
+        "aperture_mm": 103,
+        "focal_length_mm": 700,
+        "f_ratio": 6.8,
+        "weight_kg": 5.5
+      },
+      "video": "videos/telescopes/askar-103.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4E3lvib"
+    },
+    {
+      "id": "t4",
+      "name": "Askar SQA55",
+      "price": 795.0,
+      "specs": {
+        "aperture_mm": 55,
+        "focal_length_mm": 264,
+        "f_ratio": 4.8,
+        "weight_kg": 1.84
+      },
+      "video": "videos/telescopes/askar-sqa55.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3dyXsIf"
+    },
+    {
+      "id": "t12",
+      "name": "William Optics RedCat 51",
+      "price": 849.0,
+      "specs": {
+        "aperture_mm": 51,
+        "focal_length_mm": 250,
+        "f_ratio": 4.9,
+        "weight_kg": 1.77
+      },
+      "video": "videos/telescopes/redcat-51.mp4",
+      "affiliateUrl": "https://agenaastro.com/william-optics-redcat-51-iii-wifd-l-rc51rdiii.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "t18",
+      "name": "Askar 91F",
+      "price": 995.0,
+      "specs": {
+        "aperture_mm": 91,
+        "focal_length_mm": 609,
+        "f_ratio": 6.7,
+        "weight_kg": 3.92
+      },
+      "video": "videos/telescopes/askar-91f.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c43adSdH"
+    },
+    {
+      "id": "t10",
+      "name": "Celestron C8 Edge HD",
+      "price": 1899.0,
+      "specs": {
+        "aperture_mm": 203,
+        "focal_length_mm": 2032,
+        "f_ratio": 10.0,
+        "weight_kg": 6.35
+      },
+      "video": "videos/telescopes/c8-edge-hd.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c41L6V67"
+    },
+    {
+      "id": "t7",
+      "name": "Askar 140 APO",
+      "price": 2098.0,
+      "specs": {
+        "aperture_mm": 140,
+        "focal_length_mm": 980,
+        "f_ratio": 7.0,
+        "weight_kg": 9.2
+      },
+      "video": "videos/telescopes/askar-140.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3HCTVcr"
+    },
+    {
+      "id": "t9",
+      "name": "Askar SQA85",
+      "price": 2395.0,
+      "specs": {
+        "aperture_mm": 85,
+        "focal_length_mm": 408,
+        "f_ratio": 4.8,
+        "weight_kg": 4.62
+      },
+      "video": "videos/telescopes/askar-sqa85.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3kCCeeP"
+    },
+    {
+      "id": "t19",
+      "name": "Askar SQA106",
+      "price": 3395.0,
+      "specs": {
+        "aperture_mm": 106,
+        "focal_length_mm": 509,
+        "f_ratio": 4.8,
+        "weight_kg": 5.82
+      },
+      "video": "videos/telescopes/askar-sqa106.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4eqGxfN"
+    },
+    {
+      "id": "t11",
+      "name": "Celestron C11 Edge HD",
+      "price": 4799.0,
+      "specs": {
+        "aperture_mm": 280,
+        "focal_length_mm": 2800,
+        "f_ratio": 10.0,
+        "weight_kg": 12.5
+      },
+      "video": "videos/telescopes/c11-edge-hd.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Bcn0KJ"
+    },
+    {
+      "id": "t8",
+      "name": "Askar 185 APO",
+      "price": 5049.0,
+      "specs": {
+        "aperture_mm": 185,
+        "focal_length_mm": 1295,
+        "f_ratio": 7.0,
+        "weight_kg": 14.9
+      },
+      "video": "videos/telescopes/askar-185.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3dmSt67"
+    }
+  ],
+  "mounts": [
+    {
+      "id": "m7",
+      "name": "Teseek 11",
+      "price": 299.0,
+      "specs": {
+        "payload_kg": 5,
+        "weight_kg": 1.3
+      },
+      "video": "videos/mounts/teseek-11.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Irz79p"
+    },
+    {
+      "id": "m13",
+      "name": "Teseek 14",
+      "price": 399.0,
+      "specs": {
+        "payload_kg": 10,
+        "weight_kg": 2.3
+      },
+      "video": "videos/mounts/teseek-14.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4LuyTx5"
+    },
+    {
+      "id": "m8",
+      "name": "Juwei 14",
+      "price": 649.0,
+      "specs": {
+        "payload_kg": 13,
+        "weight_kg": 3.5
+      },
+      "video": "videos/mounts/juwei-14.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3nxo0T1"
+    },
+    {
+      "id": "m12",
+      "name": "Clearsky ST17 Mini",
+      "price": 599.0,
+      "specs": {
+        "payload_kg": 18,
+        "weight_kg": 2.7
+      },
+      "video": "videos/mounts/clearsky-st17-mini.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3BmVO8j"
+    },
+    {
+      "id": "m9",
+      "name": "Teseek 17",
+      "price": 499.0,
+      "specs": {
+        "payload_kg": 18,
+        "weight_kg": 3.2
+      },
+      "video": "videos/mounts/teseek-17.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3FaHh35"
+    },
+    {
+      "id": "m10",
+      "name": "Juwei 17",
+      "price": 699.0,
+      "specs": {
+        "payload_kg": 18,
+        "weight_kg": 5.15
+      },
+      "video": "videos/mounts/juwei-17.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c33QS3Pl"
+    },
+    {
+      "id": "m5",
+      "name": "ZWO AM3",
+      "price": 1499.0,
+      "specs": {
+        "payload_kg": 8,
+        "weight_kg": 3.9
+      },
+      "video": "videos/mounts/am3.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-am3-strain-wave-drive-equatorial-mount-head.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "m11",
+      "name": "Clearsky ST25",
+      "price": 1469.0,
+      "specs": {
+        "payload_kg": 30,
+        "weight_kg": 8.5
+      },
+      "video": "videos/mounts/clearsky-st25.mp4",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3mDIOh5"
+    },
+    {
+      "id": "m4",
+      "name": "ZWO AM5N",
+      "price": 2260.0,
+      "specs": {
+        "payload_kg": 15,
+        "weight_kg": 5.5
+      },
+      "video": "videos/mounts/am5n-new.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-am5n-strain-wave-drive-equatorial-mount-and-tripod-new-am5.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "m6",
+      "name": "Skywatcher 150i",
+      "price": 2299.0,
+      "specs": {
+        "payload_kg": 20,
+        "weight_kg": 16.3
+      },
+      "video": "videos/mounts/skywatcher-150i.mp4",
+      "affiliateUrl": "https://agenaastro.com/sky-watcher-eq6-r-pro-computerized-goto-telescope-mount-s30300.html?rfsn=7955740.fa93bab"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "c14",
+      "name": "SvBony SV705C - IMX585",
+      "price": 201.0,
+      "specs": {
+        "sensor": "IMX585",
+        "resolution_mp": 8.3,
+        "pixel_size_um": 2.9,
+        "sensor_px_w": 3856,
+        "sensor_px_h": 2180,
+        "weight_kg": 0.16
+      },
+      "video": "videos/cameras/svbony-705c.mp4",
+      "affiliateUrl": "https://www.svbony.com/products/sv705c-color-planetary-camera-imx585?ref=DAMONSCOTTING&utm_source=goaffpro"
+    },
+    {
+      "id": "c6",
+      "name": "ZWO ASI 585MC",
+      "price": 382.0,
+      "specs": {
+        "sensor": "IMX585",
+        "resolution_mp": 8.29,
+        "pixel_size_um": 2.9,
+        "sensor_px_w": 3840,
+        "sensor_px_h": 2160,
+        "weight_kg": 0.126
+      },
+      "video": "videos/cameras/asi-585-shared.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi585mc-cmos-color-astronomy-imaging-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c7",
+      "name": "ZWO ASI 585MM",
+      "price": 520.0,
+      "specs": {
+        "sensor": "IMX585",
+        "resolution_mp": 8.29,
+        "pixel_size_um": 2.9,
+        "sensor_px_w": 3840,
+        "sensor_px_h": 2160,
+        "weight_kg": 0.126
+      },
+      "video": "videos/cameras/asi-585-shared.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi585mm-cmos-monochrome-astronomy-imaging-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c12",
+      "name": "Altair Hypercam 585C",
+      "price": 359.0,
+      "specs": {
+        "sensor": "IMX585",
+        "resolution_mp": 8.3,
+        "pixel_size_um": 2.9,
+        "sensor_px_w": 3840,
+        "sensor_px_h": 2160,
+        "weight_kg": 0.3
+      },
+      "video": "videos/cameras/altair-585c.mp4",
+      "affiliateUrl": "https://altairastro.com/altair-hypercam-585c-colour-fan-cooled-usb3-astronomy-camera-13481-p.asp"
+    },
+    {
+      "id": "c13",
+      "name": "Altair Hypercam 585M",
+      "price": 539.0,
+      "specs": {
+        "sensor": "IMX585",
+        "resolution_mp": 8.3,
+        "pixel_size_um": 2.9,
+        "sensor_px_w": 3840,
+        "sensor_px_h": 2160,
+        "weight_kg": 0.3
+      },
+      "video": "videos/cameras/altair-585m.mp4",
+      "affiliateUrl": "https://altairastro.com/altair-hypercam-585m-mono-fan-cooled-usb3-astronomy-camera-13482-p.asp"
+    },
+    {
+      "id": "c8",
+      "name": "ZWO ASI 533MC",
+      "price": 859.0,
+      "specs": {
+        "sensor": "IMX533",
+        "resolution_mp": 9,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 3008,
+        "sensor_px_h": 3008,
+        "weight_kg": 0.47
+      },
+      "video": "videos/cameras/asi-533.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi533mc-p-cmos-color-astronomy-imaging-cooled-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c9",
+      "name": "ZWO ASI 533MM",
+      "price": 999.0,
+      "specs": {
+        "sensor": "IMX533",
+        "resolution_mp": 9,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 3008,
+        "sensor_px_h": 3008,
+        "weight_kg": 0.47
+      },
+      "video": "videos/cameras/asi-533.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-533mm-cooled-monochrome-astronomy-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c4",
+      "name": "ZWO ASI 2600MC",
+      "price": 1599.0,
+      "specs": {
+        "sensor": "IMX571",
+        "resolution_mp": 26,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 6248,
+        "sensor_px_h": 4176,
+        "weight_kg": 0.55
+      },
+      "video": "videos/cameras/asi-2600mc.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi2600mc-p-cmos-color-astronomy-imaging-cooled-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c5",
+      "name": "ZWO ASI 2600MM",
+      "price": 2099.0,
+      "specs": {
+        "sensor": "IMX571",
+        "resolution_mp": 26,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 6248,
+        "sensor_px_h": 4176,
+        "weight_kg": 0.55
+      },
+      "video": "videos/cameras/asi-2600mm.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi2600mm-p-cmos-monochrome-astronomy-imaging-cooled-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c10",
+      "name": "ZWO ASI 6200MC",
+      "price": 3899.0,
+      "specs": {
+        "sensor": "IMX455",
+        "resolution_mp": 62,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 9576,
+        "sensor_px_h": 6388,
+        "weight_kg": 0.7
+      },
+      "video": "videos/cameras/asi-6200mc.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi6200mc-p-cmos-color-astronomy-imaging-cooled-camera.html?rfsn=7955740.fa93bab"
+    },
+    {
+      "id": "c11",
+      "name": "ZWO ASI 6200MM",
+      "price": 3899.0,
+      "specs": {
+        "sensor": "IMX455",
+        "resolution_mp": 62,
+        "pixel_size_um": 3.76,
+        "sensor_px_w": 9576,
+        "sensor_px_h": 6388,
+        "weight_kg": 0.7
+      },
+      "video": "videos/cameras/asi-6200mm.mp4",
+      "affiliateUrl": "https://agenaastro.com/zwo-asi6200mm-p-cmos-mono-astronomy-imaging-cooled-camera.html?rfsn=7955740.fa93bab"
+    }
+  ]
+}

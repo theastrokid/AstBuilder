@@ -1,0 +1,197 @@
+import './styles.css';
+import { state } from './src/state.js';
+import { loadProductData, loadExampleImages, findProductById, findRandomConfiguration } from './src/data.js';
+import { calculateSpentBudget } from './src/calculations.js';
+import {
+  initElements, getElements,
+  populateDropdowns, updateVideoPreview, clearVideoPreview,
+  updateSummary, updateBudgetDisplay,
+  populateConveyorBelt, updateConveyorMatches,
+  closeModal, showError, handleShareRig,
+} from './src/ui.js';
+import { initCommunitySection, updateCommunitySubmitState } from './src/community/communitySection.js';
+import { renderRigDetailPage, hideRigDetailPage } from './src/community/rigDetailPage.js';
+import { launchGame } from './src/priceIsRight/gameUI.js';
+import { initCursorTrail } from './src/cursorTrail.js';
+
+// ── Bootstrap ───────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  const el = initElements();
+
+  el.telescopeSelect.addEventListener('change', () => handleSelectionChange('telescope'));
+  el.mountSelect.addEventListener('change', () => handleSelectionChange('mount'));
+  el.cameraSelect.addEventListener('change', () => handleSelectionChange('camera'));
+  el.buyNowBtn.addEventListener('click', handleBuyNowClick);
+
+  el.budgetSlider.addEventListener('input', handleBudgetChange);
+  el.randomBtn.addEventListener('click', handleRandomSelection);
+  el.shareBtn.addEventListener('click', handleShareRig);
+  document.getElementById('pir-btn').addEventListener('click', launchGame);
+  el.modalClose.addEventListener('click', closeModal);
+  el.modalBackdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  initCursorTrail();
+  updateBudgetDisplay();
+
+  loadProductData()
+    .then(() => {
+      populateDropdowns();
+      if (!applyUrlState()) setDefaultSelections();
+    })
+    .catch((err) => { console.error('Error loading product data:', err); showError(); });
+
+  loadExampleImages()
+    .then(() => populateConveyorBelt())
+    .catch((err) => console.error('Error loading example images:', err));
+
+  // ── Community submissions ────────────────────────────────────
+  initCommunitySection();
+
+  // ── Hash-based routing (detail page) ─────────────────────────
+  handleRouteChange();
+  window.addEventListener('hashchange', handleRouteChange);
+});
+
+// ── URL state (shareable links) ─────────────────────────────────
+
+function applyUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  const tId = params.get('telescope');
+  const mId = params.get('mount');
+  const cId = params.get('camera');
+  if (!tId && !mId && !cId) return false;
+
+  const t = tId ? findProductById('telescope', tId) : null;
+  const m = mId ? findProductById('mount', mId) : null;
+  const c = cId ? findProductById('camera', cId) : null;
+  if (!t && !m && !c) return false;
+
+  if (t) { state.currentSelections.telescope = t; updateVideoPreview('telescope', t); }
+  if (m) { state.currentSelections.mount = m; updateVideoPreview('mount', m); }
+  if (c) { state.currentSelections.camera = c; updateVideoPreview('camera', c); }
+  populateDropdowns();
+  updateSummary();
+  pushUrlState();
+  updateCommunitySubmitState();
+  return true;
+}
+
+function pushUrlState() {
+  const p = new URLSearchParams();
+  const { telescope, mount, camera } = state.currentSelections;
+  if (telescope) p.set('telescope', telescope.id);
+  if (mount) p.set('mount', mount.id);
+  if (camera) p.set('camera', camera.id);
+  const qs = p.toString();
+  history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+}
+
+// ── Event handlers ──────────────────────────────────────────────
+
+function handleSelectionChange(category) {
+  const el = getElements();
+  const id = el[`${category}Select`].value;
+
+  if (id) {
+    const product = findProductById(category, id);
+    if (product) {
+      state.currentSelections[category] = product;
+      updateVideoPreview(category, product);
+    }
+  } else {
+    state.currentSelections[category] = null;
+    clearVideoPreview(category);
+  }
+
+  populateDropdowns();
+  updateSummary();
+  pushUrlState();
+  updateCommunitySubmitState();
+}
+
+function handleBuyNowClick() {
+  const { telescope, mount, camera } = state.currentSelections;
+  if (!telescope || !mount || !camera) return;
+  const urls = [telescope.affiliateUrl, mount.affiliateUrl, camera.affiliateUrl];
+  if (urls.some(u => !u)) return;
+  for (const url of urls) window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function handleBudgetChange() {
+  const el = getElements();
+  state.currentBudget = parseInt(el.budgetSlider.value);
+  updateBudgetDisplay();
+
+  // Preserve valid selections; drop the most expensive ones that bust the budget
+  const spent = calculateSpentBudget(state.currentSelections);
+  if (spent > state.currentBudget) {
+    const cats = ['telescope', 'mount', 'camera']
+      .filter(c => state.currentSelections[c])
+      .sort((a, b) => state.currentSelections[b].price - state.currentSelections[a].price);
+    let total = spent;
+    for (const cat of cats) {
+      if (total <= state.currentBudget) break;
+      total -= state.currentSelections[cat].price;
+      state.currentSelections[cat] = null;
+      clearVideoPreview(cat);
+    }
+  }
+
+  if (state.productsData) populateDropdowns();
+  updateSummary();
+  pushUrlState();
+  updateCommunitySubmitState();
+}
+
+
+function handleRandomSelection() {
+  const combo = findRandomConfiguration(state.currentBudget, state.lastRandomSelection);
+  if (!combo) return;
+
+  state.currentSelections.telescope = combo.telescope;
+  state.currentSelections.mount = combo.mount;
+  state.currentSelections.camera = combo.camera;
+  state.lastRandomSelection = { telescope: combo.telescope.id, mount: combo.mount.id, camera: combo.camera.id };
+
+  populateDropdowns();
+  updateVideoPreview('telescope', combo.telescope);
+  updateVideoPreview('mount', combo.mount);
+  updateVideoPreview('camera', combo.camera);
+  updateSummary();
+  pushUrlState();
+  updateCommunitySubmitState();
+}
+
+function setDefaultSelections() {
+  if (!state.productsData) return;
+  const t = state.productsData.telescopes.find(x => x.id === 't18');
+  const m = state.productsData.mounts.find(x => x.id === 'm9');
+  const c = state.productsData.cameras.find(x => x.id === 'c12');
+
+  if (t && m && c) {
+    state.currentSelections = { telescope: t, mount: m, camera: c };
+    populateDropdowns();
+    updateVideoPreview('telescope', t);
+    updateVideoPreview('mount', m);
+    updateVideoPreview('camera', c);
+    updateSummary();
+    pushUrlState();
+    updateCommunitySubmitState();
+  } else {
+    handleRandomSelection();
+  }
+}
+
+// ── Hash routing for community detail page ───────────────────────
+
+function handleRouteChange() {
+  const hash = window.location.hash;
+  const rigMatch = hash.match(/^#\/community\/rig\/(.+)$/);
+  if (rigMatch) {
+    renderRigDetailPage(rigMatch[1]);
+  } else {
+    hideRigDetailPage();
+  }
+}

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            http-equiv="Cache-Control"
+            content="no-cache, no-store, must-revalidate"
+        />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <title>The Telescope Man | Astro Rig Builder</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="astro-floaters">
+            <div class="astro-floater astro-floater--1">&#x2604;</div>
+            <div class="astro-floater astro-floater--2">&#x1FA90;</div>
+            <div class="astro-floater astro-floater--3">&#x1F6F8;</div>
+        </div>
+        <div class="container">
+            <header>
+                <div class="header-brand">
+                    <h1>The Telescope Man's</h1>
+                    <p class="header-tagline">Astro Rig Builder</p>
+                </div>
+                <div class="controls-row">
+                    <div class="budget-control">
+                        <div class="budget-header">
+                            <span class="budget-label">Astro Rig Budget</span>
+                            <span id="budget-display" class="budget-value">£2,500</span>
+                        </div>
+                        <input
+                            type="range"
+                            id="budget-slider"
+                            min="0"
+                            max="10000"
+                            value="2500"
+                            step="100"
+                        />
+                        <div class="budget-markers">
+                            <span>£0</span>
+                            <span>£2.5k</span>
+                            <span>£5k</span>
+                            <span>£7.5k</span>
+                            <span>£10k</span>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button id="pir-btn" class="pir-launch-btn">
+                            <span class="btn-icon">🎰</span> The Price Is Right
+                        </button>
+                        <button id="random-btn" class="random-btn">
+                            <span class="btn-icon">🎲</span> Random Rig
+                        </button>
+                        <button id="share-btn" class="share-btn">
+                            <span class="btn-icon">📸</span> Share
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                <!-- Categories: Dropdown + Preview per category -->
+                <div class="categories-grid">
+                    <div class="category-block">
+                        <div class="selector-group">
+                            <label for="telescope-select">
+                                <span class="selector-icon">🔭</span> Telescope
+                            </label>
+                            <select id="telescope-select" name="telescope">
+                                <option value="">Select a telescope...</option>
+                            </select>
+                        </div>
+                        <div class="preview-panel">
+                            <h3>Telescope Preview</h3>
+                            <div class="video-container">
+                                <video
+                                    id="telescope-video"
+                                    muted
+                                    playsinline
+                                    style="display: none"
+                                >
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div id="telescope-placeholder" class="placeholder">
+                                    Select a telescope to see preview
+                                </div>
+                            </div>
+                            <a
+                                id="telescope-buy-btn"
+                                class="item-buy-btn"
+                                href="#"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="display: none"
+                                >Buy Now</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="category-block">
+                        <div class="selector-group">
+                            <label for="mount-select">
+                                <span class="selector-icon">🤖</span> Mount
+                            </label>
+                            <select id="mount-select" name="mount">
+                                <option value="">Select a mount...</option>
+                            </select>
+                        </div>
+                        <div class="preview-panel">
+                            <h3>Mount Preview</h3>
+                            <div class="video-container">
+                                <video
+                                    id="mount-video"
+                                    muted
+                                    playsinline
+                                    style="display: none"
+                                >
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div id="mount-placeholder" class="placeholder">
+                                    Select a mount to see preview
+                                </div>
+                            </div>
+                            <a
+                                id="mount-buy-btn"
+                                class="item-buy-btn"
+                                href="#"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="display: none"
+                                >Buy Now</a
+                            >
+                        </div>
+                    </div>
+
+                    <div class="category-block">
+                        <div class="selector-group">
+                            <label for="camera-select">
+                                <span class="selector-icon">📷</span> Camera
+                            </label>
+                            <select id="camera-select" name="camera">
+                                <option value="">Select a camera...</option>
+                            </select>
+                        </div>
+                        <div class="preview-panel">
+                            <h3>Camera Preview</h3>
+                            <div class="video-container">
+                                <video
+                                    id="camera-video"
+                                    muted
+                                    playsinline
+                                    style="display: none"
+                                >
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div id="camera-placeholder" class="placeholder">
+                                    Select a camera to see preview
+                                </div>
+                            </div>
+                            <a
+                                id="camera-buy-btn"
+                                class="item-buy-btn"
+                                href="#"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="display: none"
+                                >Buy Now</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <section
+                    class="summary"
+                    id="summary-section"
+                    style="display: none"
+                >
+                    <h2>Configuration Summary</h2>
+
+                    <div class="summary-content">
+                        <div class="summary-left-column">
+                            <div class="total-cost">
+                                <h3>Total Cost</h3>
+                                <div id="total-price" class="price">£0.00</div>
+                            </div>
+
+                            <div class="configuration-calculator">
+                                <h3>Safe Load Capacity</h3>
+                                <div id="load-content"></div>
+                            </div>
+
+                            <div class="configuration-calculator">
+                                <h3>Effective Field of View</h3>
+                                <div id="fov-content"></div>
+                            </div>
+                        </div>
+
+                        <div class="summary-right-column">
+                            <div class="specs-grid" id="specs-grid">
+                                <!-- Telescope Column -->
+                                <div class="spec-column" id="telescope-specs">
+                                    <h3 class="spec-column-title">
+                                        🔭 Telescope
+                                    </h3>
+                                    <div class="spec-column-content"></div>
+                                </div>
+                                <!-- Mount Column -->
+                                <div class="spec-column" id="mount-specs">
+                                    <h3 class="spec-column-title">🤖 Mount</h3>
+                                    <div class="spec-column-content"></div>
+                                </div>
+                                <!-- Camera Column -->
+                                <div class="spec-column" id="camera-specs">
+                                    <h3 class="spec-column-title">📷 Camera</h3>
+                                    <div class="spec-column-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buy-section">
+                        <button id="buy-now-btn" disabled>Buy Now</button>
+                        <div
+                            id="buy-note"
+                            class="buy-note"
+                            style="display: none"
+                        >
+                            Some items are missing affiliate links
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Image Conveyor Belt -->
+                <section
+                    class="conveyor-section"
+                    id="conveyor-section"
+                    style="display: none"
+                >
+                    <div class="conveyor-container">
+                        <div class="conveyor-track" id="conveyor-track">
+                            <!-- Thumbnails will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Example Images Section -->
+                <section
+                    class="example-images"
+                    id="example-images-section"
+                    style="display: none"
+                >
+                    <h2>Images featuring your selected gear</h2>
+                    <div class="image-gallery" id="image-gallery">
+                        <!-- Images will be populated by JavaScript -->
+                    </div>
+                    <p class="image-credit">
+                        All images captured by "Damon Scotting" from his Bortle
+                        6 garden.
+                    </p>
+                </section>
+
+                <!-- Community Submissions Section -->
+                <section class="community-section" id="community-section">
+                    <!-- Populated by communitySection.js -->
+                </section>
+
+                <!-- Disclaimers Section -->
+                <section class="disclaimers-section">
+                    <details class="disclaimers-details">
+                        <summary class="disclaimers-toggle">Legal &amp; Disclaimers</summary>
+                        <div class="disclaimers-content">
+                            <p>
+                                <strong>Pricing Notice:</strong>
+                                The prices displayed on this page are subject to
+                                change and may vary during promotional periods or
+                                regional sales events. Many of these products are
+                                shown not including the VAT costs as these vary
+                                drastically by region.
+                            </p>
+
+                            <p>
+                                <strong>Illustrative Previews:</strong>
+                                All product visuals are provided for illustration
+                                purposes only. These preview images were generated
+                                using Google's VEO3 and may not precisely represent
+                                the actual product design or configuration.
+                            </p>
+
+                            <p>
+                                <strong>Discount Codes:</strong>
+                                To access exclusive savings, use the listed
+                                AliExpress discount codes at checkout. Discounts,
+                                availability, and terms are determined by the
+                                respective retailer and may vary by region.
+                                Aliexpress discount codes:
+                                $3-$29:【IFPU5TML】$6-$59:【IFPCITVL】
+                                $9-$89:【IFPXLDYJ】$16-$149:【IFP8DYOG】
+                                $23-$199:【IFPS6MNV】$30-$269:【IFPJYX9A】
+                                $40-$369:【IFPABUSF】$50-$469:【IFPCTR28】
+                                $60-$599:【IFP7URUU】$70-$699:【IFPZEK1B】
+                            </p>
+                        </div>
+                    </details>
+                </section>
+            </main>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message" style="display: none">
+                <h2>Error Loading Data</h2>
+                <p>
+                    Unable to load product information. Please refresh the page
+                    and try again.
+                </p>
+            </div>
+        </div>
+
+        <!-- Rig Detail Page (shown via hash route, replaces main builder) -->
+        <div id="rig-detail-page" style="display: none"></div>
+
+        <!-- Image Modal -->
+        <div
+            id="image-modal"
+            class="image-modal"
+            style="display: none"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image preview"
+        >
+            <div class="modal-backdrop" id="modal-backdrop"></div>
+            <div class="modal-content">
+                <button
+                    class="modal-close"
+                    id="modal-close"
+                    aria-label="Close modal"
+                >
+                    &times;
+                </button>
+                <img id="modal-image" src="" alt="" class="modal-image" />
+                <p id="modal-filename" class="modal-filename"></p>
+            </div>
+        </div>
+
+        <script type="module" src="/app.js"></script>
+    </body>
+</html>
