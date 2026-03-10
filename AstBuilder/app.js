@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCursorTrail();
   updateBudgetDisplay();
+  updateSliderThumbColor(el.budgetSlider);
 
   loadProductData()
     .then(() => {
@@ -119,10 +120,24 @@ function handleBuyNowClick() {
   for (const url of urls) window.open(url, '_blank', 'noopener,noreferrer');
 }
 
+function updateSliderThumbColor(slider) {
+  const min = parseFloat(slider.min) || 0;
+  const max = parseFloat(slider.max) || 10000;
+  const val = parseFloat(slider.value);
+  const pct = (val - min) / (max - min); // 0 = £0, 1 = £10k
+  // Green (hue 130) at 0% → Red (hue 0) at 100%, saturation fixed at 60%, lightness 65%
+  const hue = Math.round(130 * (1 - pct));
+  const color = `hsl(${hue}, 60%, 65%)`;
+  const glow = `hsla(${hue}, 60%, 55%, 0.45)`;
+  slider.style.setProperty('--slider-thumb-color', color);
+  slider.style.setProperty('--slider-thumb-glow', glow);
+}
+
 function handleBudgetChange() {
   const el = getElements();
   state.currentBudget = parseInt(el.budgetSlider.value);
   updateBudgetDisplay();
+  updateSliderThumbColor(el.budgetSlider);
 
   // Preserve valid selections; drop the most expensive ones that bust the budget
   const spent = calculateSpentBudget(state.currentSelections);
@@ -139,7 +154,32 @@ function handleBudgetChange() {
     }
   }
 
-  if (state.productsData) populateDropdowns();
+  // Auto-select the cheapest affordable option for any empty category
+  if (state.productsData) {
+    const categoryMap = {
+      telescope: state.productsData.telescopes,
+      mount: state.productsData.mounts,
+      camera: state.productsData.cameras,
+    };
+    for (const [cat, products] of Object.entries(categoryMap)) {
+      if (!state.currentSelections[cat]) {
+        const otherSpent = calculateSpentBudget({
+          ...state.currentSelections,
+          [cat]: null,
+        });
+        const remaining = state.currentBudget - otherSpent;
+        const affordable = products
+          .filter(p => p.price <= remaining)
+          .sort((a, b) => a.price - b.price);
+        if (affordable.length > 0) {
+          state.currentSelections[cat] = affordable[0];
+          updateVideoPreview(cat, affordable[0]);
+        }
+      }
+    }
+    populateDropdowns();
+  }
+
   updateSummary();
   pushUrlState();
   updateCommunitySubmitState();
