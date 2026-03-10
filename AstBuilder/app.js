@@ -13,6 +13,7 @@ import { initCommunitySection, updateCommunitySubmitState } from './src/communit
 import { renderRigDetailPage, hideRigDetailPage } from './src/community/rigDetailPage.js';
 import { launchGame } from './src/priceIsRight/gameUI.js';
 import { initCursorTrail } from './src/cursorTrail.js';
+import { checkEasterEgg, isEasterEggActive } from './src/easterEgg.js';
 
 // ── Bootstrap ───────────────────────────────────────────────────
 
@@ -93,6 +94,7 @@ function pushUrlState() {
 // ── Event handlers ──────────────────────────────────────────────
 
 function handleSelectionChange(category) {
+  if (isEasterEggActive()) return;
   const el = getElements();
   const id = el[`${category}Select`].value;
 
@@ -128,36 +130,94 @@ function initTitleCycle() {
   const h1 = document.querySelector('.title-cycle');
   if (!textEl || !h1) return;
 
-  function spawnDust(container) {
-    for (let i = 0; i < 24; i++) {
-      const p = document.createElement('span');
-      p.className = 'stardust-particle';
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 100}%`;
-      p.style.setProperty('--rand-x', Math.random().toFixed(2));
-      p.style.setProperty('--rand-y', Math.random().toFixed(2));
-      p.style.animationDelay = `${Math.random() * 0.3}s`;
-      p.style.animationDuration = `${0.5 + Math.random() * 0.6}s`;
-      container.appendChild(p);
-      p.addEventListener('animationend', () => p.remove());
+  let isTransitioning = false;
+  let activeParticles = 0;
+  const MAX_PARTICLES = 120;
+
+  function spawnDustCloud() {
+    const h1Rect = h1.getBoundingClientRect();
+    const textRect = textEl.getBoundingClientRect();
+    const offsetX = textRect.left - h1Rect.left;
+    const offsetY = textRect.top - h1Rect.top;
+    const w = textRect.width;
+    const th = textRect.height;
+
+    // 4 staggered waves of dense particles across the text area
+    for (let wave = 0; wave < 4; wave++) {
+      const count = 22 + Math.floor(Math.random() * 8);
+      for (let i = 0; i < count; i++) {
+        if (activeParticles >= MAX_PARTICLES) return;
+        const p = document.createElement('span');
+        p.className = 'cosmic-dust';
+
+        // Spread particles across text area with some overflow
+        const cx = offsetX - w * 0.05 + Math.random() * w * 1.1;
+        const cy = offsetY - th * 0.15 + Math.random() * th * 1.3;
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 10 + Math.random() * 30;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist * 0.5;
+        const dz = (Math.random() - 0.5) * 15;
+        const size = 2 + Math.random() * 3;
+        const r = 200 + Math.floor(Math.random() * 55);
+        const g = 215 + Math.floor(Math.random() * 40);
+        const glowAlpha = (0.4 + Math.random() * 0.5).toFixed(2);
+
+        p.style.left = `${cx}px`;
+        p.style.top = `${cy}px`;
+        p.style.setProperty('--dx', `${dx.toFixed(1)}px`);
+        p.style.setProperty('--dy', `${dy.toFixed(1)}px`);
+        p.style.setProperty('--dz', `${dz.toFixed(1)}px`);
+        p.style.setProperty('--dust-size', `${size.toFixed(1)}px`);
+        p.style.setProperty('--dust-color', `rgb(${r}, ${g}, 255)`);
+        p.style.setProperty('--dust-glow', `${(size + 5).toFixed(0)}px`);
+        p.style.setProperty('--dust-glow-color', `rgba(96, 128, 224, ${glowAlpha})`);
+        p.style.setProperty('--dust-dur', `${(700 + Math.random() * 500).toFixed(0)}ms`);
+        p.style.setProperty('--dust-delay', `${(wave * 120 + Math.random() * 150).toFixed(0)}ms`);
+        p.style.setProperty('--dust-start-opacity', '1');
+
+        h1.appendChild(p);
+        activeParticles++;
+        p.addEventListener('animationend', () => { p.remove(); activeParticles--; });
+      }
     }
   }
 
   function cycle() {
-    // Dissolve out
-    textEl.classList.add('title-dissolve-out');
-    spawnDust(h1);
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    const nextIdx = (idx + 1) % titles.length;
+
+    // Create bright shroud overlay to obscure the text swap
+    const shroud = document.createElement('div');
+    shroud.className = 'title-shroud';
+    h1.appendChild(shroud);
+
+    // Create ghost of current text (fades out, absolute positioned)
+    const ghost = document.createElement('span');
+    ghost.className = 'title-ghost';
+    ghost.textContent = titles[idx];
+    h1.appendChild(ghost);
+
+    // Set new text and fade it in
+    textEl.textContent = titles[nextIdx];
+    textEl.classList.add('title-fade-in');
+
+    // Spawn dense particle cloud
+    spawnDustCloud();
+
+    // Clean up after animations complete
     setTimeout(() => {
-      idx = (idx + 1) % titles.length;
-      textEl.textContent = titles[idx];
-      textEl.classList.remove('title-dissolve-out');
-      textEl.classList.add('title-dissolve-in');
-      spawnDust(h1);
-      setTimeout(() => textEl.classList.remove('title-dissolve-in'), 600);
-    }, 600);
+      ghost.remove();
+      shroud.remove();
+      textEl.classList.remove('title-fade-in');
+      idx = nextIdx;
+      isTransitioning = false;
+    }, 1050);
   }
 
-  // First swap after 2 seconds, then every 6 seconds
   setTimeout(() => {
     cycle();
     setInterval(cycle, 6000);
@@ -180,8 +240,10 @@ function updateSliderThumbColor(slider) {
 function handleBudgetChange() {
   const el = getElements();
   state.currentBudget = parseInt(el.budgetSlider.value);
+  checkEasterEgg(state.currentBudget);
   updateBudgetDisplay();
   updateSliderThumbColor(el.budgetSlider);
+  if (isEasterEggActive()) return;
 
   // Preserve valid selections; drop the most expensive ones that bust the budget
   const spent = calculateSpentBudget(state.currentSelections);
@@ -231,6 +293,7 @@ function handleBudgetChange() {
 
 
 function handleRandomSelection() {
+  if (isEasterEggActive()) return;
   const combo = findRandomConfiguration(state.currentBudget, state.lastRandomSelection);
   if (!combo) return;
 
