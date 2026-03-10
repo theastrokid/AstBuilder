@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursorTrail();
   updateBudgetDisplay();
   updateSliderThumbColor(el.budgetSlider);
+  initTitleCycle();
 
   loadProductData()
     .then(() => {
@@ -118,6 +119,49 @@ function handleBuyNowClick() {
   const urls = [telescope.affiliateUrl, mount.affiliateUrl, camera.affiliateUrl];
   if (urls.some(u => !u)) return;
   for (const url of urls) window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function initTitleCycle() {
+  const titles = ["Damon Scotting's", "The Telescope Man's"];
+  let idx = 0;
+  const textEl = document.querySelector('.title-text');
+  const h1 = document.querySelector('.title-cycle');
+  if (!textEl || !h1) return;
+
+  function spawnDust(container) {
+    for (let i = 0; i < 24; i++) {
+      const p = document.createElement('span');
+      p.className = 'stardust-particle';
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 100}%`;
+      p.style.setProperty('--rand-x', Math.random().toFixed(2));
+      p.style.setProperty('--rand-y', Math.random().toFixed(2));
+      p.style.animationDelay = `${Math.random() * 0.3}s`;
+      p.style.animationDuration = `${0.5 + Math.random() * 0.6}s`;
+      container.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }
+  }
+
+  function cycle() {
+    // Dissolve out
+    textEl.classList.add('title-dissolve-out');
+    spawnDust(h1);
+    setTimeout(() => {
+      idx = (idx + 1) % titles.length;
+      textEl.textContent = titles[idx];
+      textEl.classList.remove('title-dissolve-out');
+      textEl.classList.add('title-dissolve-in');
+      spawnDust(h1);
+      setTimeout(() => textEl.classList.remove('title-dissolve-in'), 600);
+    }, 600);
+  }
+
+  // First swap after 2 seconds, then every 6 seconds
+  setTimeout(() => {
+    cycle();
+    setInterval(cycle, 6000);
+  }, 2000);
 }
 
 function updateSliderThumbColor(slider) {

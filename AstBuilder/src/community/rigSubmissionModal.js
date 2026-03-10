@@ -14,6 +14,21 @@ import { refreshCarousel } from './rigCarousel.js';
 
 let modalOverlay = null;
 
+// ── Profanity filter ─────────────────────────────────────────────
+const BLOCKED_PATTERNS = [
+  /f+[u\*@]+[c\*@]+[k\*@]+/i, /s+h+[i\*@1]+[t\*@]+/i, /b+[i\*@1]+[t\*@]+[c\*@]+h/i,
+  /a+[s\$@]+[s\$@]+h+o+l+e/i, /d+[i\*@1]+[c\*@]+k/i, /p+[u\*@]+[s\$]+[s\$]+y/i,
+  /c+[u\*@]+n+t/i, /w+h+o+r+e/i, /s+l+u+t/i, /n+[i\*@1]+g+g/i, /f+a+g+/i,
+  /r+e+t+a+r+d/i, /t+w+a+t/i, /w+a+n+k/i, /b+o+l+l+o+c+k/i, /a+r+s+e+/i,
+  /p+r+[i\*@1]+c+k/i, /c+o+c+k/i, /t+[i\*@1]+t+s/i, /b+a+s+t+a+r+d/i,
+  /d+a+m+n/i, /h+e+l+l+/i, /c+r+a+p/i, /p+[i\*@1]+s+s/i,
+];
+
+function containsProfanity(text) {
+  const clean = text.replace(/[\s._\-]/g, '');
+  return BLOCKED_PATTERNS.some(rx => rx.test(clean));
+}
+
 export function openSubmissionModal() {
   const { telescope, mount, camera } = state.currentSelections;
   if (!telescope || !mount || !camera) return;
@@ -51,38 +66,26 @@ export function openSubmissionModal() {
   );
   modal.appendChild(summary);
 
-  // ── Username input ─────────────────────────────────────────────
-  modal.appendChild(el('label', { className: 'submission-label' }, 'Your Name'));
-  const usernameInput = el('input', {
+  // ── Initials input ─────────────────────────────────────────────
+  modal.appendChild(el('label', { className: 'submission-label' }, 'Your Initials'));
+  const initialsInput = el('input', {
     className: 'submission-input',
     type: 'text',
-    placeholder: 'e.g. StarGazer_42',
-    maxlength: '30',
+    placeholder: 'e.g. DS',
+    maxlength: '4',
+    style: 'width:120px;text-align:center;text-transform:uppercase;font-size:1.1rem;font-weight:700;letter-spacing:3px;',
   });
-  modal.appendChild(usernameInput);
-
-  // ── Name input ─────────────────────────────────────────────────
-  modal.appendChild(el('label', { className: 'submission-label' }, 'Rig Name (optional)'));
-  const nameInput = el('input', {
-    className: 'submission-input',
-    type: 'text',
-    placeholder: `Rig #${nextNum}`,
+  const charCount = el('div', { className: 'submission-char-count' }, '0 / 4');
+  const errorMsg = el('div', { style: 'color:#ef4444;font-size:0.8rem;min-height:1.2em;margin-top:4px;' });
+  initialsInput.addEventListener('input', () => {
+    // Only allow letters
+    initialsInput.value = initialsInput.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    charCount.textContent = `${initialsInput.value.length} / 4`;
+    errorMsg.textContent = '';
   });
-  modal.appendChild(nameInput);
-
-  // ── Description textarea ───────────────────────────────────────
-  modal.appendChild(el('label', { className: 'submission-label' }, 'Description (optional)'));
-  const descArea = el('textarea', {
-    className: 'submission-textarea',
-    placeholder: 'Describe your build\u2026',
-    maxlength: '140',
-  });
-  const charCount = el('div', { className: 'submission-char-count' }, '0 / 140');
-  descArea.addEventListener('input', () => {
-    charCount.textContent = `${descArea.value.length} / 140`;
-  });
-  modal.appendChild(descArea);
+  modal.appendChild(initialsInput);
   modal.appendChild(charCount);
+  modal.appendChild(errorMsg);
 
   // ── Actions ────────────────────────────────────────────────────
   const actions = el('div', { className: 'submission-actions' });
@@ -92,6 +95,17 @@ export function openSubmissionModal() {
 
   const submitBtn = el('button', { className: 'submission-btn-primary' }, 'Submit');
   submitBtn.addEventListener('click', async () => {
+    const initials = initialsInput.value.trim().toUpperCase();
+
+    if (!initials) {
+      errorMsg.textContent = 'Please enter your initials.';
+      return;
+    }
+    if (containsProfanity(initials)) {
+      errorMsg.textContent = 'Inappropriate content detected.';
+      return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Capturing\u2026';
 
@@ -99,9 +113,9 @@ export function openSubmissionModal() {
       const screenshot = await captureRigPreview();
 
       addSubmission({
-        name: nameInput.value.trim() || `Rig #${nextNum}`,
-        username: usernameInput.value.trim() || 'Anonymous',
-        description: descArea.value.trim(),
+        name: `Rig #${nextNum}`,
+        username: initials,
+        description: '',
         screenshot: screenshot || '',
         telescope: { id: telescope.id, name: telescope.name, price: telescope.price, affiliateUrl: telescope.affiliateUrl || '' },
         mount:     { id: mount.id,     name: mount.name,     price: mount.price,     affiliateUrl: mount.affiliateUrl || '' },
@@ -125,7 +139,7 @@ export function openSubmissionModal() {
   modalOverlay.appendChild(modal);
   modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeSubmissionModal(); });
   document.body.appendChild(modalOverlay);
-  usernameInput.focus();
+  initialsInput.focus();
 
   const onEsc = (e) => {
     if (e.key === 'Escape') { closeSubmissionModal(); document.removeEventListener('keydown', onEsc); }

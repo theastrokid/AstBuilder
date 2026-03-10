@@ -461,41 +461,25 @@ export async function handleShareRig() {
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:#1a2845;padding:30px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;width:1000px;';
 
-    // Header grid
-    const header = document.createElement('div');
-    header.style.marginBottom = '20px';
-    header.appendChild(buildText('h2', 'My Astrophotography Rig', 'color:white;text-align:center;margin-bottom:20px;font-size:24px;'));
+    // Title
+    wrapper.appendChild(buildText('h2', 'My Astrophotography Rig', 'color:white;text-align:center;margin-bottom:20px;font-size:24px;'));
 
-    const grid = document.createElement('div');
-    grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:20px;';
-    const items = [
-      { emoji: '\ud83d\udd2d', label: 'Telescope', sel: telescope },
-      { emoji: '\ud83e\udd16', label: 'Mount', sel: mount },
-      { emoji: '\ud83d\udcf7', label: 'Camera', sel: camera },
-    ];
-    for (const it of items) {
-      const card = document.createElement('div');
-      card.style.cssText = 'background:rgba(35,55,85,.7);padding:15px;border-radius:8px;text-align:center;';
-      card.appendChild(buildText('div', `${it.emoji} ${it.label}`, 'color:#5a9fd4;font-weight:600;margin-bottom:5px;'));
-      card.appendChild(buildText('div', it.sel.name, 'color:white;font-size:14px;'));
-      card.appendChild(buildText('div', formatPrice(it.sel.price), 'color:#8ab4d4;font-size:16px;font-weight:600;margin-top:5px;'));
-      grid.appendChild(card);
-    }
-    header.appendChild(grid);
-    wrapper.appendChild(header);
+    // Main layout: previews left, info right
+    const mainRow = document.createElement('div');
+    mainRow.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;';
 
-    // Preview panels
-    const previews = document.createElement('div');
-    previews.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px;';
+    // Left column: 3 preview panels stacked
+    const previewCol = document.createElement('div');
+    previewCol.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
     const panels = [
-      { frame: frames.telescope, label: 'Telescope Preview', sel: telescope, emoji: '\ud83d\udd2d' },
-      { frame: frames.mount, label: 'Mount Preview', sel: mount, emoji: '\ud83e\udd16' },
-      { frame: frames.camera, label: 'Camera Preview', sel: camera, emoji: '\ud83d\udcf7' },
+      { frame: frames.telescope, label: 'Telescope', sel: telescope, emoji: '\ud83d\udd2d' },
+      { frame: frames.mount, label: 'Mount', sel: mount, emoji: '\ud83e\udd16' },
+      { frame: frames.camera, label: 'Camera', sel: camera, emoji: '\ud83d\udcf7' },
     ];
     for (const p of panels) {
       const panel = document.createElement('div');
-      panel.style.cssText = 'background:rgba(20,30,45,.7);border-radius:8px;padding:15px;text-align:center;';
-      panel.appendChild(buildText('h3', p.label, 'color:white;font-size:16px;margin-bottom:10px;'));
+      panel.style.cssText = 'background:rgba(20,30,45,.7);border-radius:8px;padding:10px;text-align:center;';
+      panel.appendChild(buildText('div', `${p.emoji} ${p.label}`, 'color:#70adf9;font-size:13px;font-weight:600;margin-bottom:6px;'));
       if (p.frame) {
         const img = document.createElement('img');
         img.src = p.frame;
@@ -503,21 +487,38 @@ export async function handleShareRig() {
         panel.appendChild(img);
       } else {
         const ph = document.createElement('div');
-        ph.style.cssText = 'width:100%;min-height:180px;background:linear-gradient(135deg,#0a1628,#1a2845);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#5a9fd4;';
-        ph.appendChild(buildText('div', p.emoji, 'font-size:48px;margin-bottom:10px;'));
-        ph.appendChild(buildText('div', p.sel.name, 'color:white;font-size:13px;text-align:center;font-weight:600;'));
+        ph.style.cssText = 'width:100%;min-height:100px;background:linear-gradient(135deg,#0a1628,#1a2845);border-radius:4px;display:flex;align-items:center;justify-content:center;padding:12px;';
+        ph.appendChild(buildText('div', p.sel.name, 'color:white;font-size:13px;font-weight:600;'));
         panel.appendChild(ph);
       }
-      previews.appendChild(panel);
+      previewCol.appendChild(panel);
     }
-    wrapper.appendChild(previews);
+    mainRow.appendChild(previewCol);
 
-    // Footer total
-    const footer = document.createElement('div');
-    footer.style.cssText = 'background:rgba(35,55,85,.9);padding:20px;border-radius:8px;text-align:center;';
-    footer.appendChild(buildText('div', 'Total Cost', 'color:#5a9fd4;font-weight:600;font-size:18px;margin-bottom:5px;'));
-    footer.appendChild(buildText('div', formatPrice(telescope.price + mount.price + camera.price), 'color:white;font-size:28px;font-weight:700;'));
-    wrapper.appendChild(footer);
+    // Right column: info cards + total
+    const infoCol = document.createElement('div');
+    infoCol.style.cssText = 'display:flex;flex-direction:column;gap:10px;';
+    const items = [
+      { emoji: '\ud83d\udd2d', label: 'Telescope', sel: telescope },
+      { emoji: '\ud83e\udd16', label: 'Mount', sel: mount },
+      { emoji: '\ud83d\udcf7', label: 'Camera', sel: camera },
+    ];
+    for (const it of items) {
+      const card = document.createElement('div');
+      card.style.cssText = 'background:rgba(35,55,85,.7);padding:14px 18px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;';
+      card.appendChild(buildText('div', `${it.emoji} ${it.sel.name}`, 'color:white;font-size:14px;font-weight:500;'));
+      card.appendChild(buildText('div', formatPrice(it.sel.price), 'color:#70adf9;font-size:16px;font-weight:700;'));
+      infoCol.appendChild(card);
+    }
+    // Total cost card inside right column
+    const totalCard = document.createElement('div');
+    totalCard.style.cssText = 'background:rgba(35,55,85,.9);padding:18px;border-radius:8px;text-align:center;margin-top:auto;';
+    totalCard.appendChild(buildText('div', 'Total Cost', 'color:#70adf9;font-weight:600;font-size:16px;margin-bottom:4px;'));
+    totalCard.appendChild(buildText('div', formatPrice(telescope.price + mount.price + camera.price), 'color:white;font-size:26px;font-weight:700;'));
+    infoCol.appendChild(totalCard);
+    mainRow.appendChild(infoCol);
+
+    wrapper.appendChild(mainRow);
 
     document.body.appendChild(wrapper);
     await new Promise(r => setTimeout(r, 200));
